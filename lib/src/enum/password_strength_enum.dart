@@ -75,7 +75,7 @@ enum PasswordStrength implements PasswordStrengthItem {
       return null;
     }
 
-    if (commonDictionary[text] == true) {
+    if (commonDictionary[text.toLowerCase()] == true) {
       return PasswordStrength.alreadyExposed;
     }
 
