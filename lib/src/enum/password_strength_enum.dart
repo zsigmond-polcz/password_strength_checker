@@ -84,7 +84,7 @@ enum PasswordStrength implements PasswordStrengthItem {
     }
 
     int counter = 0;
-    counter += min(2, (text.length - 8) ~/ 2);
+    counter += min(3, (text.length - 8) ~/ 2);
     if (text.contains(RegExp(r'[a-z]'))) counter++;
     if (text.contains(RegExp(r'[A-Z]'))) counter++;
     if (text.contains(RegExp(r'[0-9]'))) counter++;
