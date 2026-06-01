@@ -1,8 +1,9 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import '../dict/common_passwords.dart';
 
 /// The default password strength length.
-const int kDefaultStrengthLength = 12;
+const int kDefaultStrengthLength = 8;
 
 /// The abstract class for the password strength enum.
 abstract class PasswordStrengthItem implements Enum {
@@ -82,18 +83,19 @@ enum PasswordStrength implements PasswordStrengthItem {
       return PasswordStrength.weak;
     }
 
-    var counter = 0;
+    int counter = 0;
+    counter += min(2, (text.length - 8) ~/ 2);
     if (text.contains(RegExp(r'[a-z]'))) counter++;
     if (text.contains(RegExp(r'[A-Z]'))) counter++;
     if (text.contains(RegExp(r'[0-9]'))) counter++;
     if (text.contains(RegExp(r'[!@#\$%&*()?£\-_=]'))) counter++;
 
     return switch (counter) {
-      1 => PasswordStrength.weak,
-      2 => PasswordStrength.medium,
-      3 => PasswordStrength.strong,
-      4 => PasswordStrength.secure,
-      _ => PasswordStrength.weak,
+    	0 || 1 => PasswordStrength.alreadyExposed,
+      2 => PasswordStrength.weak,
+      3 => PasswordStrength.medium,
+      4 => PasswordStrength.strong,
+      _ => PasswordStrength.secure,
     };
   }
 
