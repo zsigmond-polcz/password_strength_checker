@@ -80,7 +80,7 @@ enum PasswordStrength implements PasswordStrengthItem {
     }
 
     if (text.length < kDefaultStrengthLength) {
-      return PasswordStrength.weak;
+      return PasswordStrength.alreadyExposed;
     }
 
     int counter = 0;
@@ -91,8 +91,7 @@ enum PasswordStrength implements PasswordStrengthItem {
     if (text.contains(RegExp(r'[!@#\$%&*()?£\-_=]'))) counter++;
 
     return switch (counter) {
-    	0 || 1 => PasswordStrength.alreadyExposed,
-      2 => PasswordStrength.weak,
+    	0 || 1 || 2 => PasswordStrength.weak,
       3 => PasswordStrength.medium,
       4 => PasswordStrength.strong,
       _ => PasswordStrength.secure,
